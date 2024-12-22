@@ -42,17 +42,17 @@ export function MainNav(): React.JSX.Element {
           <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
             <IconButton
               onClick={(): void => {
-                setOpenNav(true);
+                setOpenNav(false);
               }}
               sx={{ display: { lg: 'none' } }}
             >
               <ListIcon />
             </IconButton>
-            <Tooltip title="Search">
+            {/* <Tooltip title="Search">
               <IconButton>
                 <MagnifyingGlassIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
           </Stack>
           <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
             <Tooltip title="Contacts">
@@ -68,9 +68,9 @@ export function MainNav(): React.JSX.Element {
               </Badge>
             </Tooltip>
             <Avatar
-              onClick={userPopover.handleOpen}
+              // onClick={userPopover.handleOpen}
               ref={userPopover.anchorRef}
-              src="/assets/avatar.png"
+              src="/assets/avatar1.png"
               sx={{ cursor: 'pointer' }}
             />
           </Stack>
