@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 
@@ -19,7 +19,7 @@ import type { Student } from '@/components/dashboard/students/students-table';
 import { display } from '@mui/system';
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { PickerValidDate } from '@mui/x-date-pickers/internals/hooks/useValidation';
+import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -32,19 +32,36 @@ const class_types = [
   { value: 'daycare', label: 'Day Care' },
 ] as const;
 
-export function StudentDetailsForm({student, setStudent}): React.JSX.Element {
+interface StudentDetailsFormProps {
+  student: Student;
+  setStudent: React.Dispatch<React.SetStateAction<Student>>;
+}
+
+export function StudentDetailsForm({student, setStudent}: StudentDetailsFormProps): React.JSX.Element {
   //const [dob, setDob] = React.useState<Dayjs | null>(null);
 
-  const handleDobChange = (date: PickerValidDate | null) => {
-    // Convert PickerValidDate to Dayjs
-    const dayjsDate = date ? (date) : null;
-    //setDob(dayjsDate); // Set the Dayjs date in the state
-    student.date_of_birth = dayjsDate.format('YYYY-MM-DD HH:mm:ss');
+  const [selectedClassType, setSelectedClassType] = useState('');
+  useEffect(() => {
+    // Set the initial class type when the student data is loaded
+    if (student && student.class_type) {
+      setSelectedClassType(student.class_type);
+    }
+  }, [student]);
+
+  const handleDobChange = (date: Dayjs | null) => {
+    const dayjsDate = date ? (date) : dayjs();
+    setStudent({
+      ...student,
+      'date_of_birth': dayjsDate,
+    })
   };
 
-  const handleAdmissionDateChange = (date:PickerValidDate | null)=> {
-    const dayjsDate = date?(date) : null;
-    student.admission_date = dayjsDate.format('YYYY-MM-DD HH:mm:ss');
+  const handleAdmissionDateChange = (date:Dayjs | null)=> {
+    const dayjsDate = date?(date) : dayjs();
+    setStudent({
+      ...student,
+      'admission_date': dayjsDate,
+    })
   }
 
   const handleClassChange = (e: SelectChangeEvent<string>) => {
@@ -97,7 +114,7 @@ export function StudentDetailsForm({student, setStudent}): React.JSX.Element {
                   
                   <FormControl fullWidth required>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="Date of Birth" 
+                    <DatePicker label="Date of Birth" value={student.date_of_birth?student.date_of_birth:null}
                     onChange={handleDobChange}
                   />
                   </LocalizationProvider>  
@@ -106,8 +123,11 @@ export function StudentDetailsForm({student, setStudent}): React.JSX.Element {
                 <Grid md={3} xs={12}>
                   <FormControl fullWidth required>
                     <InputLabel>Class</InputLabel>
-                    <Select label="class_type" name="class_name" variant="outlined" 
-                    onChange={handleClassChange}>
+                    <Select label="class_type" name="class_name" variant="outlined" value={student.class_type}
+                    onChange={(event) => {
+                      setSelectedClassType(event.target.value); // Update state when changed
+                      handleClassChange(event); // Call the parent handler if needed
+                    }}>
                       {class_types.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.label}
@@ -119,7 +139,7 @@ export function StudentDetailsForm({student, setStudent}): React.JSX.Element {
                 <Grid md={3} xs={12}>
                 <FormControl fullWidth required>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="Admission Date" 
+                    <DatePicker label="Admission Date" value={student.admission_date?student.admission_date:null}
                     onChange={handleAdmissionDateChange}
                   />
                   </LocalizationProvider>  
@@ -187,7 +207,7 @@ export function StudentDetailsForm({student, setStudent}): React.JSX.Element {
                     <OutlinedInput id="contact_number"
                       label="Phone"
                       name="contact_number"
-                      value={student.contact_number} type='tel' onChange={handleInputChange}/>
+                      value={student.contact_number} type='tel' onChange={handleInputChange} inputProps={{ maxLength: 10 }}/>
                   </FormControl>
                 </Grid>
               </Grid>

@@ -5,7 +5,7 @@ import { PlugsConnected as PlugsConnectedIcon } from '@phosphor-icons/react/dist
 import { User as UserIcon } from '@phosphor-icons/react/dist/ssr/User';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 import { XSquare } from '@phosphor-icons/react/dist/ssr/XSquare';
-
+import { CurrencyInr as RupeeIcon } from '@phosphor-icons/react/dist/ssr/CurrencyInr';
 export const navIcons = {
   'chart-pie': ChartPieIcon,
   'gear-six': GearSixIcon,
@@ -13,4 +13,5 @@ export const navIcons = {
   'x-square': XSquare,
   user: UserIcon,
   users: UsersIcon,
+  rupee: RupeeIcon,
 } as Record<string, Icon>;
