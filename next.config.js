@@ -3,4 +3,4 @@ const config = {
     output: 'export',
 };
 
-export default config;
+module.exports = config;  // Use CommonJS syntax for exporting

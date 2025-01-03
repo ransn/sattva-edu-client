@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import { Student } from '@/components/dashboard/students/students-table';
 import { Trash as DeleteIcon } from '@phosphor-icons/react/dist/ssr/Trash';
 //import { maxHeight, spacing, Stack } from '@mui/system';
-//import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import axios from 'axios';
 
 
@@ -125,7 +125,7 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
             const year = new Date().getFullYear();
             const nextYear = year + 1;
             rows.forEach((row) => {
-                if (row.id === undefined) {
+                if (row.id === -1) {
                     row.receipt_no = 'SPA-' + year + '/' + nextYear + '-' + selectedStudent?.id;
                     row.student_id = selectedStudent?selectedStudent.id:-1;
                     updatedFeeData.push(row);
@@ -271,13 +271,13 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
                                 <TableCell><b>Student Id: </b>{selectedStudent?.id || 'NA'}</TableCell>
                                 <TableCell><b>Name: </b>{selectedStudent?.first_name || 'NA'} {selectedStudent?.last_name || 'NA'}</TableCell>
                                 <TableCell><b>Class: </b>{selectedStudent?.class_type || 'NA'}</TableCell>
-                                <TableCell><b>DOB: </b>{selectedStudent?.date_of_birth.format('YYYY-MM-DD') || 'NA'}</TableCell>
+                                <TableCell><b>DOB: </b>{selectedStudent && selectedStudent.date_of_birth ? dayjs(selectedStudent.date_of_birth).format('YYYY-MM-DD') : 'NA'}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell><b>Father Name: </b>{selectedStudent?.father_first_name || 'NA'} {selectedStudent?.father_last_name || 'NA'}</TableCell>
                                 <TableCell><b>Mother Name: </b>{selectedStudent?.mother_first_name || 'NA'} {selectedStudent?.mother_last_name || 'NA'}</TableCell>
                                 <TableCell><b>Phone: </b>{selectedStudent?.contact_number || 'NA'}</TableCell>
-                                <TableCell><b>Admission Date: </b>{selectedStudent?.admission_date.format('YYYY-MM-DD') || 'NA'}</TableCell>
+                                <TableCell><b>Admission Date: </b>{selectedStudent && selectedStudent.admission_date ? dayjs(selectedStudent.admission_date).format('YYYY-MM-DD') : 'NA'}</TableCell>
                                 {/* <TableCell><b>Receipt No: </b><input type='text' style={{ height: '30px', fontSize: '14px' }} required value={receiptNum} onChange={handleReceiptChange} /></TableCell> */}
                             </TableRow>
                             <TableRow>
@@ -454,13 +454,14 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
                                     <TableCell>Student Id: <strong>{finalBillData.selectedStudent?.id || 'NA'}</strong></TableCell>
                                     <TableCell>Name: <strong>{finalBillData.selectedStudent?.first_name || 'NA'} {finalBillData.selectedStudent?.last_name || 'NA'}</strong></TableCell>
                                     <TableCell>Class: <strong>{finalBillData.selectedStudent?.class_type || 'NA'}</strong></TableCell>
-                                    <TableCell>DOB: <strong>{finalBillData.selectedStudent?.date_of_birth.format('YYYY-MM-DD') || 'NA'}</strong></TableCell>
+                                    <TableCell>DOB: <strong>{finalBillData.selectedStudent && finalBillData.selectedStudent.date_of_birth ? dayjs(finalBillData.selectedStudent.date_of_birth).format('YYYY-MM-DD') : 'NA'}</strong></TableCell>
+
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Father Name: <strong>{finalBillData.selectedStudent?.father_first_name || 'NA'} {finalBillData.selectedStudent?.father_last_name || 'NA'}</strong></TableCell>
                                     <TableCell>Mother Name: <strong>{finalBillData.selectedStudent?.mother_first_name || 'NA'} {finalBillData.selectedStudent?.mother_last_name || 'NA'}</strong></TableCell>
                                     <TableCell>Phone: <strong>{finalBillData.selectedStudent?.contact_number || 'NA'}</strong></TableCell>
-                                    <TableCell>Admission Date: <strong>{finalBillData.selectedStudent?.admission_date.format('YYYY-MM-DD') || 'NA'}</strong></TableCell>
+                                    <TableCell>Admission Date: <strong>{finalBillData.selectedStudent && finalBillData.selectedStudent.admission_date? dayjs(finalBillData.selectedStudent.admission_date).format('YYYY-MM-DD') : 'NA'}</strong></TableCell>
                                     {/* <TableCell>Receipt No: <strong>{finalBillData.selectedStudent?.receipt_no || 'NA'}</strong></TableCell> */}
                                 </TableRow>
                                 <TableRow>

@@ -55,8 +55,8 @@ export default function Page(): React.JSX.Element {
         address: '',
         class_type: '',
         contact_number: '',
-        date_of_birth: dayjs('0000-01-01'),
-        admission_date: dayjs('0000-01-01')
+        date_of_birth: dayjs('2000-01-01'),
+        admission_date: dayjs('2000-01-01')
     };
     const [showAddForm, setShowAddForm] = useState(false);
     const [student, setStudent] = useState<Student>(initialStudentState);
@@ -99,6 +99,8 @@ export default function Page(): React.JSX.Element {
     const fetchStudents = async () => {
         setLoading(true);
         try {
+            console.log(process.env.NODE_ENV)
+            console.log(process.env.NEXT_PUBLIC_API_URL)
             const response = await fetch(`${apiUrl}/students/`); // Replace with your API endpoint
             if (!response.ok) {
                 throw new Error("Failed to fetch students data");

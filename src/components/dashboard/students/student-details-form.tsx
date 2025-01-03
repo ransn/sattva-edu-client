@@ -49,7 +49,7 @@ export function StudentDetailsForm({student, setStudent}: StudentDetailsFormProp
   }, [student]);
 
   const handleDobChange = (date: Dayjs | null) => {
-    const dayjsDate = date ? (date) : dayjs();
+    const dayjsDate = date ? (date) : dayjs('2000-01-01');
     setStudent({
       ...student,
       'date_of_birth': dayjsDate,
@@ -57,7 +57,7 @@ export function StudentDetailsForm({student, setStudent}: StudentDetailsFormProp
   };
 
   const handleAdmissionDateChange = (date:Dayjs | null)=> {
-    const dayjsDate = date?(date) : dayjs();
+    const dayjsDate = date?(date) : dayjs('2000-01-01');
     setStudent({
       ...student,
       'admission_date': dayjsDate,
@@ -113,11 +113,9 @@ export function StudentDetailsForm({student, setStudent}: StudentDetailsFormProp
                 <Grid md={3} xs={12}>
                   
                   <FormControl fullWidth required>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="Date of Birth" value={student.date_of_birth?student.date_of_birth:null}
+                  <DatePicker label="Date of Birth" value={student.date_of_birth?dayjs(student.date_of_birth):dayjs('2000-01-01')}
                     onChange={handleDobChange}
                   />
-                  </LocalizationProvider>  
                   </FormControl>
                 </Grid>
                 <Grid md={3} xs={12}>
@@ -138,11 +136,9 @@ export function StudentDetailsForm({student, setStudent}: StudentDetailsFormProp
                 </Grid>
                 <Grid md={3} xs={12}>
                 <FormControl fullWidth required>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="Admission Date" value={student.admission_date?student.admission_date:null}
+                <DatePicker label="Admission Date" value={student.admission_date?dayjs(student.admission_date):dayjs('2000-01-01')}
                     onChange={handleAdmissionDateChange}
                   />
-                  </LocalizationProvider>  
                   </FormControl>
                 </Grid>
               </Grid>
