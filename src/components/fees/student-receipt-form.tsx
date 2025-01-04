@@ -122,7 +122,12 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
 
         if (activeStep === 1) {
             const updatedFeeData: FeeDetails[] = [];
-            const year = new Date().getFullYear();
+            const todayDate = new Date();
+            const currentMonth = todayDate.getMonth(); 
+            var year = todayDate.getFullYear() % 100;
+            if(currentMonth < 5 ){
+                year = year - 1;
+            }
             const nextYear = year + 1;
             rows.forEach((row) => {
                 if (row.id === -1) {
