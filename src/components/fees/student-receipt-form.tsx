@@ -10,7 +10,8 @@ import { Stepper, Step, StepLabel, Button, TableContainer, Table, TableHead, Tab
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { Student } from '@/components/dashboard/students/students-table';
@@ -18,6 +19,7 @@ import { Trash as DeleteIcon } from '@phosphor-icons/react/dist/ssr/Trash';
 //import { maxHeight, spacing, Stack } from '@mui/system';
 import dayjs from 'dayjs';
 import axios from 'axios';
+
 
 
 export interface FeeDetails {
@@ -44,6 +46,7 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
     // Array to store step titles
     const steps = ['Student Profile', 'Add Fees', 'Preview'];
     const [activeStep, setActiveStep] = useState(0);
+    const [headerChecked, setHeaderChecked] = useState(false);
 
     //const [receiptNum, setReceiptNum] = useState('');
     // const [paymentDate, setPaymentDate] = useState(() => {
@@ -101,7 +104,7 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
 
     
 
-    const finalBillData = { selectedStudent, feeData, totalFeeData };
+    const finalBillData = { selectedStudent, feeData, totalFeeData, headerChecked };
 
     // const handlePaymentChange = (date: Dayjs | null) => {
     //     // Convert PickerValidDate to Dayjs
@@ -245,6 +248,10 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
             console.log('Error generating PDF:', error);
         });
     }
+
+    const handleHeaderCheckChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHeaderChecked(event.target.checked);
+    };
 
 
     return (
@@ -565,7 +572,13 @@ export function StepperWithGrid({ selectedStudent }: StepperWithGridProps): Reac
                     {activeStep !== steps.length - 1 && 
                     <Button variant="contained" color="primary" onClick={handleNext} size='small'>Next</Button>}
                     {activeStep === steps.length - 1 && 
+                        <Grid>
+                        <FormControlLabel
+                        control={<Switch checked={headerChecked} onChange={handleHeaderCheckChanged} />}
+                        label="With Header ?"
+                      />
                         <Button variant="contained" color="primary" onClick={handleGenerateBill} size='small'>Download</Button>    
+                        </Grid>
                     }
                     </Grid>
             </Grid>
