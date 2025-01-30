@@ -52,7 +52,7 @@ export default function Page(): React.JSX.Element {
     const [studentDetails, setStudentDetails] = useState<Student>();
     const [searchText, setSearchText] = useState('');
     const [page, setPage] = useState(0); // Current page
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleViewFeesDetails = (selectedStudentFeesSummary:FeesSummary) => {
         setOpenFeesDetails(false);

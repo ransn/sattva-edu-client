@@ -71,7 +71,7 @@ export default function Page(): React.JSX.Element {
     //const rowsPerPage = 15;
     const [searchText, setSearchText] = useState('');
     const [page, setPage] = useState(0); // Current page
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleStudentSelect = (selectedStudent: Student) => {
         const dob = dayjs(selectedStudent.date_of_birth);

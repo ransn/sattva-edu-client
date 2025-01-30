@@ -150,7 +150,7 @@ export function StudentsTable({
                       <Typography variant="subtitle2">{row.first_name+' '+row.last_name}</Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell>{row.class_type}</TableCell>
+                  <TableCell>{row.class_type.charAt(0).toUpperCase() + row.class_type.slice(1).toLowerCase()}</TableCell>
                   {/* <TableCell>
                     {row.address.city}, {row.address.state}, {row.address.country}
                   </TableCell> */}

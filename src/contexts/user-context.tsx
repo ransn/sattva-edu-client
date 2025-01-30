@@ -21,7 +21,7 @@ export interface UserProviderProps {
 }
 
 export function UserProvider({ children }: UserProviderProps): React.JSX.Element {
-  const IDLE_TIMEOUT = 60000; // 10 minutes in milliseconds
+  const IDLE_TIMEOUT = 600000; // 10 minutes in milliseconds
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
   const [isSessionExpired, setIsSessionExpired] = React.useState(false);
   const router = useRouter();
