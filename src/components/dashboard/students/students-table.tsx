@@ -20,7 +20,7 @@ import Button from '@mui/material/Button';
 import { Receipt as ReceiptIcon } from '@phosphor-icons/react/dist/ssr/Receipt';
 import { Trash as TrashIcon } from '@phosphor-icons/react/dist/ssr/Trash';
 import { NotePencil as EditIcon } from '@phosphor-icons/react/dist/ssr/NotePencil';
-
+import ImageUpload from './image-upload'
 
 import { useSelection } from '@/hooks/use-selection';
 
@@ -34,7 +34,7 @@ function applyPagination(rows: Student[], page: number, rowsPerPage: number): St
 
 export interface Student {
 
-  id: 0,
+  id: number,
   first_name: string,
   last_name: string,
   father_first_name: string,
@@ -146,7 +146,7 @@ export function StudentsTable({
                   </TableCell>
                   <TableCell>
                     <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
-                      {/* <Avatar src={row.avatar} /> */}
+                      <ImageUpload student={row.id}/>
                       <Typography variant="subtitle2">{row.first_name+' '+row.last_name}</Typography>
                     </Stack>
                   </TableCell>
